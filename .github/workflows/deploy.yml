@@ -1,0 +1,30 @@
+name: Test CI/CD
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  t1:
+    if: github.repository == 'RomanButsiy/github-actions-research'
+    runs-on: [self-hosted, roman-runner]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Test 1
+        run: |
+          cat data.txt
+  t2:
+    if: github.repository == 'RomanButsiy/github-actions-research'
+    runs-on: [self-hosted, roman-runner]
+    needs: t1
+    steps:
+      - name: Test 2
+        run: |
+          cat data.txt
